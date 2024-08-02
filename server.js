@@ -18,32 +18,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// get the client
-const mysql = require('mysql2');
-
-// create the connection to database
-const connection = mysql.createConnection({
-  host: 'mysql.mth.svc.cluster.local',
-  user: 'root',
-  database: 'test',
-  password: 'Admin123!'
-});
-
-
-
-// Define a route to retrieve all users
-app.get('/all', (req, res) => {
-  // Select all users from the MySQL database
-
-  connection.query(
-    'SELECT * FROM `user`',
-    function(err, results, fields) {
-      console.log(results); // results contains rows returned by server
-      res.status(200).json(results);
-    }
-  ) 
-});
-
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html'); // Replace 'index.html' with your actual HTML file path
 });
@@ -54,18 +28,4 @@ app.get('/health', (req, res) => {
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
-});
-
-
-app.post('/add', (req, res) => {
-  const { name, surname, email, password } = req.query;
-
-  connection.query('INSERT INTO user (name, surname, email, password) VALUES (?,?,?,?)', [name, surname, email, password],(error, results) => {
-     if (error){
-      return res.status(500).json({ error: error });
-     }
-     });
-     res.sendStatus(200);
-
- 
 });
