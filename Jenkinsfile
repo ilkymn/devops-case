@@ -30,6 +30,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                     sh 'docker build -t ilkemymn/node-expres:latest .'
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'docker push ilkemymn/node-expres:latest'
                 }
             }
         }
