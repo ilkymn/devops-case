@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-token')
+        DOCKER_HUB_CREDENTIALS = credentials('docker-id')
         GITHUB_CREDENTIALS = credentials('github-token')
         SNYK_API = credentials('snyk-token')
     }
