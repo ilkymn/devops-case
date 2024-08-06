@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    credentialsId: 'github',
+                    credentialsId: 'github-token',
                     url: 'https://github.com/ilkymn/node-user.git'
             }
         }
@@ -19,9 +19,8 @@ pipeline {
         stage('Code Scan') {
             steps {
                 snykSecurity(
-                    organisation: 'ilkemymn',
-                    projectName: 'ilkemymn/node-user',
-                    snykTokenId: 'snyk-token'
+                   snykInstallation: 'snyk-token',
+               
                 )
             }
         }
@@ -29,9 +28,8 @@ pipeline {
         stage('Build') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-                    sh 'docker build -t ilkemymn/node-expres:latest .'
                     sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                    sh 'docker push ilkemymn/node-expres:latest'
+                    sh 'docker build -t ilkemymn/node-expres:latest .'
                 }
             }
         }
