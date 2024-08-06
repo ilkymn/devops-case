@@ -19,7 +19,7 @@ pipeline {
         stage('Code Scan') {
             steps {
                 snykSecurity(
-                   snykInstallation: 'Snyk',
+                   snykInstallation: 'snyk-token',
                    snykTokenId: 'snyk-token'
                
                 )
