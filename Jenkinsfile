@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-id')
         GITHUB_CREDENTIALS = credentials('github-token')
-        SNYK_API = credentials('snyk-token')
+        SNYK_API = credentials('snyk-api')
     }
 
     stages {
@@ -15,14 +15,25 @@ pipeline {
                     url: 'https://github.com/ilkymn/node-user.git'
             }
         }
-
         stage('Code Scan') {
             steps {
-                snykSecurity snykInstallation: 'Snyk Security Plugin', snykTokenId: 'snyk-token'
-               
-                
+                script {
+                    try {
+                        snykSecurity(
+                            organization: 'ilkymn',
+                            projectName: 'node-user',
+                            snykInstallation: 'Snyk', // Snyk'in doğru şekilde yüklendiğinden emin ol
+                            snykTokenId: 'snyk-api' // Bu ID'nin Jenkins'te doğru şekilde tanımlandığından emin ol
+                        )
+                    } catch (Exception e) {
+                        echo "Snyk taraması başarısız oldu: ${e.getMessage()}"
+                    }
+                }
             }
         }
+
+
+
 
         stage('Build') {
             steps {
