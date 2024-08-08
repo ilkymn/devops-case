@@ -39,6 +39,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {    
                     sh 'docker build -t ilkemymn/node-expres:latest -f Dockerfile .'
+                    sh '. /etc/profile'
                 }
             }
         }
@@ -49,6 +50,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                         docker.withRegistry('https://index.docker.io/v1/', 'docker-id') {
                             sh 'docker push ilkemymn/node-expres:latest'
+                            sh '. /etc/profile'
                         }
                     }
                     sh 'grype ilkemymn/node-expres:latest'
