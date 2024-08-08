@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-id')
         GITHUB_CREDENTIALS = credentials('github-token')
-        SNYK_API = credentials('snyk-token')
+        
     }
 
     stages {
@@ -37,9 +37,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-                    sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'
-                    sh 'docker build -t ilkemymn/node-expres:latest .'
+                withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {    
+                    sh 'docker build -t ilkemymn/node-expres:latest -f Dockerfile .'
                 }
             }
         }
