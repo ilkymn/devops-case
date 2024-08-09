@@ -40,7 +40,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {    
                     
                     sh '. /etc/profile'
-                    sh '-S docker build -t ilkemymn/node-expres:latest -f Dockerfile .'
+                    sh 'docker build -t ilkemymn/node-expres:latest -f Dockerfile .'
                     
                 }
             }
