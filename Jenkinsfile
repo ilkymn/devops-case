@@ -56,6 +56,8 @@ pipeline {
                            
                         }
                     }
+                   // sh 'cd /var/lib/jenkins/workspace/node-user@tmp'
+                    sh 'rm -rf ~/.cache/grype'
                     sh 'grype ilkemymn/node-expres:latest'
                 }
             }
