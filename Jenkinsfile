@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker-id')
         GITHUB_CREDENTIALS = credentials('github-token')
-        
+           GOOGLE_CREDENTIALS = credentials('node-services-account')
     }
 
     stages {
@@ -65,7 +65,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
+                sh '''kubectl apply -f k8s/deployment.yaml
+                gcloud auth activate-service-account --key-file=${GOOGLE_CREDENTIALS}
+                
+                '''
+                
+                
+
             }
         }
 
