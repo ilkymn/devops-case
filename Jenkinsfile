@@ -20,8 +20,6 @@ pipeline {
                 script {
                     try {
                         snykSecurity(
-                            organization: 'ilkymn',
-                            projectName: 'node-user',
                             snykInstallation: 'Snyk', // Snyk'in doğru şekilde yüklendiğinden emin ol
                             snykTokenId: 'snyk-api-token' // Bu ID'nin Jenkins'te doğru şekilde tanımlandığından emin ol
                         )
