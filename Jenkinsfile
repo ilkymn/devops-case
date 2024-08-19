@@ -67,8 +67,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: kubeconfig1, variable: 'KUBECONFIG')]) {
-                        sh 'kubectl config view --minify'
-                        sh 'kubectl cluster-info'
+                       // sh 'kubectl config view --minify'
+                        //sh 'kubectl cluster-info'
                         sh 'kubectl apply -f deployment.yaml'
                     }
                 }
