@@ -63,15 +63,15 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
+       stage('Deploy K8S') {
             steps {
-                sh '''kubectl apply -f k8s/deployment.yaml
-                gcloud auth activate-service-account --key-file=${GOOGLE_CREDENTIALS}
-                
-                '''
-                
-                
-
+                script {
+                    withCredentials([file(credentialsId: kubeconfig2, variable: 'KUBECONFIG')]) {
+                        sh 'kubectl config view --minify'
+                        sh 'kubectl cluster-info'
+                        sh 'kubectl apply -f deployment.yaml'
+                    }
+                }
             }
         }
 
