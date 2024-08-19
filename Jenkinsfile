@@ -66,7 +66,7 @@ pipeline {
        stage('Deploy K8S') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: config, variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: kubeconfig, variable: 'KUBECONFIG')]) {
                         sh 'kubectl config view --minify'
                         sh 'kubectl cluster-info'
                         sh 'kubectl apply -f deployment.yaml'
