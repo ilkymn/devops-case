@@ -69,7 +69,7 @@ pipeline {
                     withCredentials([file(credentialsId: kubeconfig1, variable: 'KUBECONFIG')]) {
                         sh 'kubectl config view --minify'
                         sh 'kubectl cluster-info'
-                        sh 'kubectl apply -f deployment.yaml'
+                        sh 'kubectl --insecure-skip-tls-verify apply -f deployment.yaml'
                     }
                 }
             }
