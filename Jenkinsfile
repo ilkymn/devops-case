@@ -68,7 +68,7 @@ pipeline {
                     
                     sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" '
                    
-                    sh "gcloud auth activate-service-account --key-file=jenkins.json"
+                    sh "gcloud auth activate-service-account --key-file=vernal-segment-430514-t2-845e88f65a65.json"
                     sh "gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project vernal-segment-430514-t2"
                     sh 'sed -i "s/latest/${BUILD_NUMBER}/g"  /home/ilkemymn/deployment.yaml'
                     sh 'kubectl apply -f  /home/ilkemymn/deployment.yaml'
