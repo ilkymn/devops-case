@@ -67,10 +67,9 @@ pipeline {
                 script {
                     
                     sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" '
-                    sh 'pwd'
-                    sh 'whoami'
-                    //sh "gcloud auth activate-service-account node-service-account@vernal-segment-430514-t2.iam.gserviceaccount.com --key-file=key.json"
-                    sh "gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project vernal-segment-430514-t2"
+                   
+                    sh "gcloud auth activate-service-account --key-file=key.json"
+                    sh "gcloud container clusters get-credentials instance-20240809-083041 --zone us-central1-b --project ilkemymn@instance-20240809-083041"
                     sh 'sed -i "s/latest/${BUILD_NUMBER}/g"  /home/ilkemymn/deployment.yaml'
                     sh 'kubectl apply -f  /home/ilkemymn/deployment.yaml'
                     
