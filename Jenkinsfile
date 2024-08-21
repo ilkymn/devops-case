@@ -70,8 +70,8 @@ pipeline {
                    
                     sh "gcloud auth activate-service-account --key-file=/var/lib/jenkins/workspace/key.json"
                     sh "gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project vernal-segment-430514-t2"
-                    sh 'sed -i "s/latest/${BUILD_NUMBER}/g" /var/lib/jenkins/workspace/node-user'
-                    sh 'kubectl apply -f  /var/lib/jenkins/workspace/node-user'
+                    sh 'sed -i "s/latest/${BUILD_NUMBER}/g" /var/lib/jenkins/workspace/node-user/deployment.yaml'
+                    sh 'kubectl apply -f  /var/lib/jenkins/workspace/node-user/kubectl'
                     
                 }
             }
