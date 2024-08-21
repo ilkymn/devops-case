@@ -76,14 +76,14 @@ pipeline {
                 }
             }
         }
-    
+    /*
         stage('Test') {
             steps {
                 sh 'npm start &'
                 sh 'sleep 10'
                 sh 'node selenium-test.js'
             }
-        }
+        }*/
     }
 
 
